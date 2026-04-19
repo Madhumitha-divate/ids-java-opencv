@@ -1,12 +1,5 @@
 # 🔒 Intrusion Detection System (IDS) — Java + OpenCV + Telegram
 
-![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white)
-![OpenCV](https://img.shields.io/badge/OpenCV-27338e?style=for-the-badge&logo=OpenCV&logoColor=white)
-![Telegram](https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)
-![Status](https://img.shields.io/badge/Status-Active-brightgreen?style=for-the-badge)
-
----
-
 ## 📌 About The Project
 
 A **real-time Intrusion Detection System** built in Java using OpenCV for face detection and Telegram Bot API for instant mobile alerts.
@@ -132,7 +125,13 @@ Right click `IDSApplication.java` → **Run As** → **Java Application**
 📸 Snapshot : snapshots/intrusion_20260331_143205.jpg
 🔴 Please check your premises immediately!
 ```
+## 📸 Demo
 
+### 🖥️ Live System Output
+![IDS Console Output](ids.png)
+
+### 📱 Telegram Alert Received
+![Telegram Notification](telegram%20notification.png)
 ---
 
 ## 📸 How It Works
