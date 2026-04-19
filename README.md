@@ -183,7 +183,7 @@ Press Q → Stop Cleanly
 **Madhumitha Divate**
 - 🔗 [LinkedIn](https://linkedin.com/in/madhumitha-divate)
 - 💻 [GitHub](https://github.com/Madhumitha-divate)
-- 📧 madhudivate009@gmail.com
+- 📧 madhudivate003@gmail.com
 
 ---
 
