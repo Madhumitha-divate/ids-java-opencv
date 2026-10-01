@@ -12,7 +12,7 @@ When a face is detected in the webcam feed:
 
 > 💡 Originally built in Python using Flask + Twilio. Rebuilt in Java with OpenCV + Telegram for a deeper understanding of Java, multithreading and API integration.
 
-> ⚠️ This project detects faces; it does not recognise who they are. It can't tell a known person from a stranger (see Future Improvements).
+> ⚠️ This project detects faces; it does not recognise who they are. It cannot tell a known person from a stranger (see Future Improvements).
 
 ---
 
@@ -23,12 +23,12 @@ When a face is detected in the webcam feed:
 | ✅ Live Webcam Feed | Real-time video window with face detection overlay |
 | ✅ Face Detection | Haar Cascade Classifier (frontal face) |
 | ✅ Rectangle Drawing | Green box drawn around every detected face |
-| ✅ Snapshot Saving | Auto-saves detection images to `/snapshots/` |
-| ✅ Telegram Alert | Mobile notification with time and face count |
+| ✅ Snapshot Saving | Auto-saves images to the `/snapshots/` folder |
+| ✅ Telegram Alert | Instant mobile notification with time and face count |
 | ✅ Alert Cooldown | Prevents spam: one alert every 10 seconds |
-| ✅ Detection History | Logs detection events in memory |
+| ✅ Detection History | Logs all detection events in memory |
 | ✅ Clean Exit | Press Q to stop the system gracefully |
-| ✅ Thread-based | Camera runs on a separate thread (`CameraMonitor extends Thread`) |
+| ✅ Thread-based | Camera runs on a separate thread using Java Thread |
 
 ---
 
@@ -65,7 +65,7 @@ IDS-Project/
 
 - **Language:** Java (Core Java, Java 8+, Multithreading)
 - **Computer Vision:** OpenCV 4.x (Java bindings)
-- **Notifications:** Telegram Bot API
+- **Notification:** Telegram Bot API
 - **Algorithm:** Haar Cascade Classifier
 - **IDE:** Eclipse
 
@@ -107,20 +107,20 @@ Place it in the `/src/` folder of your project.
 1. Open Telegram and search for **@BotFather**
 2. Send `/newbot` and follow the instructions to get your **Bot Token**
 3. Send any message to your new bot
-4. Open in a browser:
+4. Open this URL in a browser:
    ```
    https://api.telegram.org/bot<YOUR_BOT_TOKEN>/getUpdates
    ```
-5. Find `"chat" → "id"`: that's your **Chat ID**
+5. Find `"chat" → "id"`: that is your **Chat ID**
 
-### Step 5 — Configure `AppConfig.java`
+### Step 5 — Configure AppConfig.java
 
 ```java
 public static final String BOT_TOKEN = "your_bot_token_here";
 public static final String CHAT_ID   = "your_chat_id_here";
 ```
 
-> 🔐 **Never commit your real token.** Keep placeholders in the repo and put your real values only on your own machine.
+> 🔐 Never commit your real bot token. Keep placeholders in the repository and use your real values only on your own machine.
 
 ### Step 6 — Run
 
@@ -131,13 +131,12 @@ Right-click `IDSApplication.java` → **Run As** → **Java Application**
 ## 📱 Sample Telegram Alert
 
 ```
-🚨 FACE DETECTED!
+🚨 INTRUDER ALERT!
 📅 Time     : 2026-03-31 14:32:05
 👤 Faces    : 1 detected
-📸 Snapshot : snapshots/detection_20260331_143205.jpg
+📸 Snapshot : snapshots/intrusion_20260331_143205.jpg
+🔴 Please check your premises immediately!
 ```
-
-> Update this sample so the wording and snapshot file name match what your code really sends.
 
 ## 📸 Demo
 
@@ -173,11 +172,11 @@ Press Q → Stop Cleanly
 
 ## 🔑 Key Concepts Demonstrated
 
-- **OpenCV Java integration:** `VideoCapture`, `CascadeClassifier`, `HighGui`
-- **Multithreading:** `CameraMonitor extends Thread`
+- **OpenCV Java integration:** VideoCapture, CascadeClassifier, HighGui
+- **Multithreading:** CameraMonitor extends Thread
 - **Haar Cascade algorithm:** real-time face detection
 - **Telegram Bot API:** HTTP request for notifications
-- **Custom exception handling:** `DetectionException`
+- **Custom exception handling:** DetectionException
 - **Layered architecture:** controller, service, model and monitor separation
 - **Cooldown mechanism:** prevents notification spam
 
@@ -185,7 +184,7 @@ Press Q → Stop Cleanly
 
 ## 🚀 Future Improvements
 
-- [ ] Face recognition (known vs unknown faces)
+- [ ] Face recognition (identify known vs unknown faces)
 - [ ] Email alert with snapshot attachment
 - [ ] Web dashboard to view detection history
 - [ ] Multiple camera support
@@ -200,4 +199,3 @@ Press Q → Stop Cleanly
 
 - 🔗 [LinkedIn](https://www.linkedin.com/in/madhumitha-divate/)
 - 💻 [GitHub](https://github.com/Madhumitha-divate)
-- 📧 madhudivate003@gmail.com
