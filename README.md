@@ -1,31 +1,34 @@
-# 🔒 Intrusion Detection System (IDS) — Java + OpenCV + Telegram
+# 📷 Real-Time Face Detection & Alert System — Java + OpenCV + Telegram
 
 ## 📌 About The Project
 
-A **real-time Intrusion Detection System** built in Java using OpenCV for face detection and Telegram Bot API for instant mobile alerts.
+A real-time face detection application built in **Java** using **OpenCV** (Haar Cascade classifier) and the **Telegram Bot API** for instant mobile alerts.
 
-When a face is detected via webcam:
+When a face is detected in the webcam feed:
+
 1. 🟢 A **green rectangle** is drawn around the detected face
 2. 📸 A **snapshot is saved** automatically
-3. 📱 A **Telegram alert** is sent to your phone instantly
+3. 📱 A **Telegram alert** is sent to your phone
 
-> 💡 Originally built in Python using Flask + Twilio. Rebuilt in Java with OpenCV + Telegram for deeper backend understanding.
+> 💡 Originally built in Python using Flask + Twilio. Rebuilt in Java with OpenCV + Telegram for a deeper understanding of Java, multithreading and API integration.
+
+> ⚠️ This project detects faces; it does not recognise who they are. It can't tell a known person from a stranger (see Future Improvements).
 
 ---
 
 ## ✨ Features
 
 | Feature | Description |
-|---|---|
+|---------|-------------|
 | ✅ Live Webcam Feed | Real-time video window with face detection overlay |
 | ✅ Face Detection | Haar Cascade Classifier (frontal face) |
 | ✅ Rectangle Drawing | Green box drawn around every detected face |
-| ✅ Snapshot Saving | Auto-saves intrusion images to /snapshots/ folder |
-| ✅ Telegram Alert | Instant mobile notification with time + face count |
-| ✅ Alert Cooldown | Prevents spam — alerts once every 10 seconds |
-| ✅ Detection History | Logs all intrusion events in memory |
-| ✅ Clean Exit | Press Q to stop system gracefully |
-| ✅ Thread-based | Camera runs on separate thread using Java Thread |
+| ✅ Snapshot Saving | Auto-saves detection images to `/snapshots/` |
+| ✅ Telegram Alert | Mobile notification with time and face count |
+| ✅ Alert Cooldown | Prevents spam: one alert every 10 seconds |
+| ✅ Detection History | Logs detection events in memory |
+| ✅ Clean Exit | Press Q to stop the system gracefully |
+| ✅ Thread-based | Camera runs on a separate thread (`CameraMonitor extends Thread`) |
 
 ---
 
@@ -44,7 +47,7 @@ IDS-Project/
 │   │   ├── DetectionService.java     → Face detection + alert trigger
 │   │   └── NotificationService.java  → Telegram bot notification
 │   ├── model/
-│   │   └── DetectionEvent.java       → Intrusion event data model
+│   │   └── DetectionEvent.java       → Detection event data model
 │   ├── config/
 │   │   └── AppConfig.java            → Bot token + settings
 │   ├── util/
@@ -62,7 +65,7 @@ IDS-Project/
 
 - **Language:** Java (Core Java, Java 8+, Multithreading)
 - **Computer Vision:** OpenCV 4.x (Java bindings)
-- **Notification:** Telegram Bot API
+- **Notifications:** Telegram Bot API
 - **Algorithm:** Haar Cascade Classifier
 - **IDE:** Eclipse
 
@@ -71,70 +74,84 @@ IDS-Project/
 ## ⚙️ Setup & Installation
 
 ### Prerequisites
+
 - Java JDK 8 or above
 - OpenCV 4.x JAR + native library (`.dll` on Windows)
 - Eclipse IDE
 - A Telegram account
 
----
-
 ### Step 1 — Clone the Repository
-```bash
+
+```
 git clone https://github.com/Madhumitha-divate/ids-java-opencv.git
 ```
 
 ### Step 2 — Add OpenCV to Eclipse
-1. Right click project → **Build Path** → **Configure Build Path**
-2. **Libraries** → **Add External JARs** → select `opencv-4xx.jar`
-3. Expand the JAR → **Native library location** → add folder with `opencv_java4xx.dll`
 
-### Step 3 — Download Haarcascade XML
+1. Right-click project → **Build Path** → **Configure Build Path**
+2. **Libraries** → **Add External JARs** → select `opencv-4xx.jar`
+3. Expand the JAR → **Native library location** → add the folder containing `opencv_java4xx.dll`
+
+### Step 3 — Download the Haar Cascade XML
+
 Download `haarcascade_frontalface_default.xml` from:
+
 ```
 https://github.com/opencv/opencv/tree/master/data/haarcascades
 ```
+
 Place it in the `/src/` folder of your project.
 
-### Step 4 — Create Telegram Bot
-1. Open Telegram → search **@BotFather**
-2. Type `/newbot` → follow instructions → copy your **Bot Token**
-3. Message your bot once
-4. Open in browser:
-```
-https://api.telegram.org/bot<YOUR_BOT_TOKEN>/getUpdates
-```
-5. Find `"chat" → "id"` — that's your **Chat ID**
+### Step 4 — Create a Telegram Bot
 
-### Step 5 — Configure AppConfig.java
+1. Open Telegram and search for **@BotFather**
+2. Send `/newbot` and follow the instructions to get your **Bot Token**
+3. Send any message to your new bot
+4. Open in a browser:
+   ```
+   https://api.telegram.org/bot<YOUR_BOT_TOKEN>/getUpdates
+   ```
+5. Find `"chat" → "id"`: that's your **Chat ID**
+
+### Step 5 — Configure `AppConfig.java`
+
 ```java
 public static final String BOT_TOKEN = "your_bot_token_here";
 public static final String CHAT_ID   = "your_chat_id_here";
 ```
 
+> 🔐 **Never commit your real token.** Keep placeholders in the repo and put your real values only on your own machine.
+
 ### Step 6 — Run
-Right click `IDSApplication.java` → **Run As** → **Java Application**
+
+Right-click `IDSApplication.java` → **Run As** → **Java Application**
 
 ---
 
 ## 📱 Sample Telegram Alert
 
 ```
-🚨 INTRUDER ALERT!
+🚨 FACE DETECTED!
 📅 Time     : 2026-03-31 14:32:05
 👤 Faces    : 1 detected
-📸 Snapshot : snapshots/intrusion_20260331_143205.jpg
-🔴 Please check your premises immediately!
+📸 Snapshot : snapshots/detection_20260331_143205.jpg
 ```
+
+> Update this sample so the wording and snapshot file name match what your code really sends.
+
 ## 📸 Demo
 
 ### 🖥️ Live System Output
-![IDS Console Output](ids.png)
+
+![Console output](ids.png)
 
 ### 📱 Telegram Alert Received
-![Telegram Notification](telegram%20notification.png)
+
+![Telegram notification](telegram%20notification.png)
+
 ---
 
-## 📸 How It Works
+## 🔄 How It Works
 
 ```
 Webcam Frame
@@ -156,23 +173,23 @@ Press Q → Stop Cleanly
 
 ## 🔑 Key Concepts Demonstrated
 
-- **OpenCV Java Integration** — VideoCapture, CascadeClassifier, HighGui
-- **Multithreading** — CameraMonitor extends Thread
-- **Haar Cascade Algorithm** — real-time object detection
-- **Telegram Bot API** — HTTP GET request for notifications
-- **Custom Exception Handling** — DetectionException
-- **MVC Architecture** — controller, service, model, monitor separation
-- **Cooldown Mechanism** — prevents notification spam
+- **OpenCV Java integration:** `VideoCapture`, `CascadeClassifier`, `HighGui`
+- **Multithreading:** `CameraMonitor extends Thread`
+- **Haar Cascade algorithm:** real-time face detection
+- **Telegram Bot API:** HTTP request for notifications
+- **Custom exception handling:** `DetectionException`
+- **Layered architecture:** controller, service, model and monitor separation
+- **Cooldown mechanism:** prevents notification spam
 
 ---
 
 ## 🚀 Future Improvements
 
-- [ ] Face Recognition (identify known vs unknown faces)
+- [ ] Face recognition (known vs unknown faces)
 - [ ] Email alert with snapshot attachment
 - [ ] Web dashboard to view detection history
 - [ ] Multiple camera support
-- [ ] Save detection logs to MySQL database
+- [ ] Save detection logs to MySQL
 - [ ] Spring Boot REST API version
 
 ---
@@ -180,10 +197,7 @@ Press Q → Stop Cleanly
 ## 👩‍💻 Author
 
 **Madhumitha Divate**
-- 🔗 [LinkedIn](https://linkedin.com/in/madhumitha-divate)
+
+- 🔗 [LinkedIn](https://www.linkedin.com/in/madhumitha-divate/)
 - 💻 [GitHub](https://github.com/Madhumitha-divate)
 - 📧 madhudivate003@gmail.com
-
----
-
-## ⭐ If you found this project helpful, please give it a star!
